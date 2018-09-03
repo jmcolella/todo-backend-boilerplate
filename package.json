@@ -1,0 +1,33 @@
+{
+  "name": "todo-backend-boilerplate",
+  "version": "1.0.0",
+  "description": "Backend for simple Todo app using Node.js and Graphql",
+  "main": "index.js",
+  "scripts": {
+    "prepush": "yarn lint",
+    "db:create_migration": "knex migrate:make --knexfile ./server/db/knexfile.js",
+    "db:migrate": "knex migrate:latest --knexfile ./server/db/knexfile.js",
+    "db:rollback": "knex migrate:rollback --knexfile ./server/db/knexfile.js",
+    "lint": "eslint ./start.js ./index.js ./db ./graphql ./initializers ./models",
+    "start:prod": "NODE_ENV=production node server/start",
+    "start": "NODE_ENV=development node server/start"
+  },
+  "repository": "git@github.com:jmcolella/todo-backend-boilerplate.git",
+  "author": "John Colella <colella.john@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bookshelf": "^0.13.3",
+    "chalk": "^2.4.1",
+    "express": "^4.14.0",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "lodash": "^4.17.10",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "husky": "0.14.3"
+  }
+}
