@@ -2,7 +2,7 @@ const knex = {
   client: 'postgresql',
   connection: {
     host: '127.0.0.1',
-    database: process.env.DATABASE_NAME
+    database: process.env.TODO_DATABASE_NAME
   },
   migrations: {
     directory: './migrations',

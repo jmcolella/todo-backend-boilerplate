@@ -3,7 +3,6 @@ const graphQLHTTP = require('express-graphql');
 const path = require('path');
 const initialize = require('express-initializers');
 const jwt = require('jsonwebtoken');
-const setup = require('./middlewares/frontendMiddlewares');
 
 const appSchema = require('./graphql/schema');
 
@@ -19,7 +18,7 @@ const getGraphContext = (req) => {
   let user = null;
 
   if (token) {
-    user = jwt.verify(token, 'your_jwt_secret');
+    user = jwt.verify(token, process.env.TODO_JWT_SECRET);
   }
 
   return { user };
@@ -33,8 +32,6 @@ initialize(app, initOptions).then(() => {
       graphiql: true,
     })
   ));
-
-  setup(app);
 });
 
 module.exports = app;

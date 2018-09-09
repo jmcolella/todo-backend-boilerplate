@@ -9,7 +9,7 @@ module.exports = {
       const token = tokenHeader.replace(/^Bearer /, '');
 
       if (token) {
-        res.status(200).send(jwt.verify(token, 'your_jwt_secret'));
+        res.status(200).send(jwt.verify(token, process.env.TODO_JWT_SECRET));
 
         return;
       }
