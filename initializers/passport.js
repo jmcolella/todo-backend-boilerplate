@@ -94,7 +94,7 @@ module.exports = {
 
       res.cookie('user_token', token);
 
-      res.json({ user: req.user.attributes });
+      res.json({ user: req.user.attributes, token });
     });
 
     // Logout user
