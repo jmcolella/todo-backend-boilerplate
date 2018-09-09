@@ -5,7 +5,7 @@ const {
 const omit = require('lodash/omit');
 const User = require('../../../../../models/User');
 const UserType = require('../../../types/user/userType');
-const UserInputType = require('../../../inputTypes/user/userInputType');
+const UserInputType = require('../../../types/user/userInputType');
 
 exports.create = {
   type: UserType,

@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt');
 var Bookshelf = require('../db');
-var Post = require('./post').Post;
+var Todo = require('./Todo').Todo;
 
 const saltRounds = 10;
 
@@ -9,7 +9,7 @@ var User = Bookshelf.Model.extend({
   hasTimestamps: true,
 
   posts() {
-    return this.hasMany(Post, 'user_id');
+    return this.hasMany(Todo, 'user_id');
   },
 });
 

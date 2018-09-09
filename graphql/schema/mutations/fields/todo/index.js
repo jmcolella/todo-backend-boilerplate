@@ -1,56 +1,56 @@
 const {
   GraphQLID,
 } = require('graphql');
-const PostType = require('../../../types/post/postType');
-const PostInputType = require('../../../types/post/postInputType');
-const Post = require('../../../../../models/Post').Post;
+const TodoType = require('../../../types/todo/todoType');
+const TodoInputType = require('../../../types/todo/todoInputType');
+const Todo = require('../../../../../models/Todo').Todo;
 
 exports.create = {
-  type: PostType,
+  type: TodoType,
   args: {
     input: {
-      type: PostInputType,
+      type: TodoInputType,
     }
   },
   resolve: (root, params) => (
-    Post
+    Todo
       .forge(params.input)
       .save()
-      .then(post => post.attributes)
+      .then(todo => todo.attributes)
   )
 };
 
 exports.update = {
-  type: PostType,
+  type: TodoType,
   args: {
     input: {
-      type: PostInputType,
+      type: TodoInputType,
     },
     id: {
       type: GraphQLID,
     },
   },
   resolve: (root, params) => (
-    Post
+    Todo
       .where({ id: params.id })
       .fetch()
       .save(params.input, { method: 'update' })
-      .then(post => post.attributes)
+      .then(todo => todo.attributes)
   )
 };
 
-exports.delete = {
-  type: PostType,
+exports.remove = {
+  type: TodoType,
   args: {
     id: {
       type: GraphQLID,
     },
   },
   resolve: (root, params) => (
-    Post
+    Todo
       .where({ id: params.id })
       .fetch()
       .destroy()
-      .then(post => post)
+      .then(todo => todo)
   )
 };
