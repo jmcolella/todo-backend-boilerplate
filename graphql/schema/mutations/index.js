@@ -1,6 +1,6 @@
 const { GraphQLObjectType } = require('graphql');
 const user = require('./types/user');
-const post = require('./types/post');
+const todo = require('./types/todo');
 
 const MutationType = new GraphQLObjectType({
   name: 'MutationType',
@@ -11,8 +11,8 @@ const MutationType = new GraphQLObjectType({
         return {};
       },
     },
-    post: {
-      type: post,
+    todo: {
+      type: todo,
       resolve() {
         return {};
       },

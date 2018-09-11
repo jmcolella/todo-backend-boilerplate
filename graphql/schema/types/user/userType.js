@@ -4,8 +4,8 @@ const {
   GraphQLString,
   GraphQLList,
 } = require('graphql');
-const PostType = require('../post/postType');
-const Posts = require('../../../../models/Post').Posts;
+const TodoType = require('../todo/todoType');
+const Todos = require('../../../../models/Todo').Todos;
 
 const UserType = new GraphQLObjectType({
   name: 'UserType',
@@ -22,11 +22,11 @@ const UserType = new GraphQLObjectType({
       description: 'Secret password for user',
       type: GraphQLString,
     },
-    posts: {
-      description: 'Posts written by user',
-      type: new GraphQLList(PostType),
+    todos: {
+      description: 'Todos written by user',
+      type: new GraphQLList(TodoType),
       resolve: (root) => (
-        Posts
+        Todos
           .query()
           .where({ user_id: root.id }) // eslint-disable-line camelcase
           .select()

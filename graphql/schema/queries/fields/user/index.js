@@ -1,6 +1,5 @@
 const {
   GraphQLID,
-  GraphQLList,
 } = require('graphql');
 const User = require('../../../../../models/User');
 const UserType = require('../../../types/user/userType');
@@ -21,11 +20,4 @@ exports.user = {
 
     return ctx.user;
   }
-};
-
-exports.users = {
-  type: new GraphQLList(UserType),
-  resolve: () => (
-    User.fetchAll().then(users => users.map(u => u.attributes))
-  )
 };

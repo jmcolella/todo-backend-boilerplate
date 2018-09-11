@@ -1,8 +1,8 @@
 var Bookshelf = require('../db');
 var User = require('./user');
 
-var Post = Bookshelf.Model.extend({
-  tableName: 'posts',
+var Todo = Bookshelf.Model.extend({
+  tableName: 'todos',
   hasTimestamps: true,
 
   author() {
@@ -10,11 +10,11 @@ var Post = Bookshelf.Model.extend({
   }
 });
 
-var Posts = Bookshelf.Collection.extend({
-  model: Post,
+var Todos = Bookshelf.Collection.extend({
+  model: Todo,
 });
 
 module.exports = {
-  Post,
-  Posts,
+  Todo,
+  Todos,
 };
