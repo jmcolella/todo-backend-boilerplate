@@ -35,7 +35,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^7.4.3"
+    "pg": "^7.4.3",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "cross-var": "^1.1.0",
