@@ -9,6 +9,7 @@ const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const knex = require('knex');
 const knexSessionStore = require('connect-session-knex')(session);
+const omit = require('lodash/omit');
 
 const knexConfig = require('../db/knexfile');
 const User = require('../models/User');
@@ -33,22 +34,19 @@ const localStrategy = new LocalStrategy((username, password, done) => {
     .catch(error => done(error));
 });
 
-const jwtStrategy = new JWTStrategy(
-  {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'your_jwt_secret'
-  },
-  function(jwtPayload, cb) {
-    return User.where({ id: jwtPayload.id })
-      .fetch()
-      .then(user => {
-        return cb(null, user);
-      })
-      .catch(err => {
-        return cb(err);
-      });
-  }
-);
+const jwtStrategy = new JWTStrategy({
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.TODO_JWT_SECRET,
+}, function(jwtPayload, cb) {
+  return User.where({ id: jwtPayload.id })
+    .fetch()
+    .then(user => {
+      return cb(null, user);
+    })
+    .catch(err => {
+      return cb(err);
+    });
+});
 
 module.exports = {
   name: 'passport',
@@ -90,11 +88,13 @@ module.exports = {
     // Login user
 
     app.post('/login', passport.authenticate('local'), (req, res) => {
-      const token = jwt.sign(req.user.attributes.id, 'your_jwt_secret');
+      const token = jwt.sign(
+        req.user.attributes.uuid, process.env.TODO_JWT_SECRET
+      );
 
       res.cookie('user_token', token);
 
-      res.json({ user: req.user.attributes, token });
+      res.json({ user: omit(req.user.attributes, 'id'), token });
     });
 
     // Logout user

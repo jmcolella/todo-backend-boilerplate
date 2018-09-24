@@ -10,8 +10,8 @@ const Todos = require('../../../../models/Todo').Todos;
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   fields: {
-    id: {
-      description: 'Database id for user',
+    uuid: {
+      description: 'Unique id for user',
       type: GraphQLID,
     },
     username: {

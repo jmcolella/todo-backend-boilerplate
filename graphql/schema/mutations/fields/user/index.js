@@ -3,6 +3,7 @@ const {
   GraphQLNonNull,
 } = require('graphql');
 const omit = require('lodash/omit');
+const uuidv4 = require('uuid/v4');
 const User = require('../../../../../models/User');
 const UserType = require('../../../types/user/userType');
 const UserInputType = require('../../../types/user/userInputType');
@@ -26,6 +27,7 @@ exports.create = {
         return User.hashPassword(userParams.password).then(hashedPassword => {
           const input = Object.assign({}, paramsToSave, {
             password: hashedPassword,
+            uuid: uuidv4()
           });
 
           return User.forge(input).save();
