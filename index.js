@@ -5,6 +5,7 @@ const initialize = require('express-initializers');
 const jwt = require('jsonwebtoken');
 
 const appSchema = require('./graphql/schema');
+const User = require('./models/User');
 
 const app = express();
 
@@ -32,6 +33,17 @@ initialize(app, initOptions).then(() => {
       graphiql: true,
     })
   ));
+
+  app.post('/user', (req, res) => {
+    return User.forge().save()
+      .then(model => {
+        const token = jwt.sign(
+          model.attributes.uuid, process.env.TODO_JWT_SECRET
+        );
+
+        res.status(200).send({ token });
+      });
+  });
 });
 
 module.exports = app;
