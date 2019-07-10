@@ -16,13 +16,17 @@ const initOptions = {
 const getGraphContext = (req) => {
   const tokenHeader = req.headers.authorization || '';
   const token = tokenHeader.replace(/^Bearer /, '');
-  let user = null;
 
   if (token) {
-    user = jwt.verify(token, process.env.TODO_JWT_SECRET);
+    const uuid = jwt.verify(token, process.env.TODO_JWT_SECRET);
+
+    return User.fetch({ uuid })
+      .then(model => ({
+        user: model.attributes,
+      }));
   }
 
-  return { user };
+  return { user: null };
 };
 
 initialize(app, initOptions).then(() => {
