@@ -28,7 +28,7 @@
     "express-initializers": "^0.0.1",
     "express-session": "^1.15.6",
     "graphql": "^14.0.0",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^0.15.2",
     "lodash": "^4.17.10",
     "morgan": "^1.9.0",
